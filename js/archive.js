@@ -1,6 +1,0 @@
-import { escapeHtml, formatDate } from './utils.js';
-
-export function renderArchive(state) {
-  const items = state.archive || [];
-  return `<section><div class="my-requests-head"><h2>Archive <span style="color:#718096;font-size:15px">(${items.length})</span></h2><button class="back-queue" data-open-queue>Back to Queue</button></div>${items.length ? `<div class="table-scroll"><table class="request-table" style="min-width:1050px"><thead><tr><th>Request ID</th><th>Requester</th><th>Business</th><th>Request Type</th><th>Priority</th><th>Archived On</th><th>Audit Entries</th><th>Action</th></tr></thead><tbody>${items.map(r=>`<tr><td class="request-id">${r.id}</td><td>${escapeHtml(r.requester)}</td><td>${escapeHtml(r.business)}</td><td>${escapeHtml(r.type)}</td><td><span class="badge priority-${r.priority.toLowerCase()}">${r.priority}</span></td><td>${formatDate(r.archivedAt || r.audit.at(-1)?.at)}</td><td>${r.audit.length}</td><td><button class="assign" data-restore="${r.id}">Restore</button></td></tr>`).join('')}</tbody></table></div>` : '<section class="empty-state"><h2>No archived requests</h2><p>Requests marked Archived in the Request Workspace will appear here.</p></section>'}</section>`;
-}
