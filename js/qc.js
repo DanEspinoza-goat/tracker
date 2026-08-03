@@ -1,0 +1,7 @@
+import { escapeHtml, formatDate } from './utils.js';
+
+export function renderQcWorklist(state) {
+  const pending=state.myRequests.filter(request=>request.workflowStage==='qc');
+  const mine=pending.filter(request=>request.qc===state.currentQcer);
+  return `<section><div class="my-requests-head"><div><h2>QC Worklist <span style="color:#718096;font-size:15px">/ ${escapeHtml(state.currentQcer)}</span></h2><div class="capacity-note">${pending.length} QC-ready request${pending.length===1?'':'s'} across the tracker · showing ${mine.length} routed to the current QCer</div></div><button class="back-queue" data-open-queue>Back to Queue</button></div>${mine.length ? `<div class="table-scroll"><table class="request-table" style="min-width:1050px"><thead><tr><th>Request ID</th><th>Researcher</th><th>Requester</th><th>Request Type</th><th>Time Taken</th><th>QC Rating</th><th>Submitted to QC</th><th>Review</th></tr></thead><tbody>${mine.map(r=>`<tr><td class="request-id">${r.id}</td><td>${escapeHtml(r.researcher)}</td><td>${escapeHtml(r.requester)}</td><td>${escapeHtml(r.type)}</td><td>${r.workMinutes || 0} mins</td><td>${escapeHtml(r.qcRating || 'Not rated')}</td><td>${formatDate(r.audit.at(-1)?.at)}</td><td><button class="assign" data-open-qc="${r.id}">Review</button></td></tr>`).join('')}</tbody></table></div>` : '<section class="empty-state"><h2>No QC requests for the current QCer</h2><p>Set the Current QCer in the header before assigning a QC-required request, then complete research to route it here.</p></section>'}</section>`;
+}
