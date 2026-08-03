@@ -1,4 +1,0 @@
-.modal-backdrop { position:fixed; inset:0; z-index:5; display:grid; place-items:center; background:rgba(1,16,36,.45); }
-.modal { width:560px; border:1px solid #bac6d3; box-shadow:0 14px 35px rgba(0,0,0,.3); background:#fff; }
-.modal-header { padding:16px 20px; color:#fff; background:#052044; font-size:19px; }.modal-body { padding:22px 20px; }.modal-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:22px; }
-.modal-actions button { padding:8px 16px; border:1px solid #bcc9d7; background:#fff; }.modal-actions .primary { border-color:#0878e8; color:#fff; background:#0878e8; }
