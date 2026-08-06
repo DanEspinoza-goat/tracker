@@ -1,6 +1,0 @@
-import { escapeHtml, formatDate } from './utils.js';
-
-export function renderQcWorklist(state) {
-  const mine=state.myRequests.filter(request=>request.workflowStage==='qc' && request.qc===state.currentQcer);
-  return `<section><div class="my-requests-head"><div><h2>QC Worklist / ${escapeHtml(state.currentQcer)}</h2><div class="capacity-note">Only requests routed to the current QCer are shown here.</div></div><button class="back-queue" data-open-queue>Back to Queue</button></div>${mine.length ? `<div class="table-scroll"><table class="request-table"><thead><tr><th>Request ID</th><th>Researcher</th><th>Requester</th><th>Request Type</th><th>Research Time</th><th>QC Timer</th><th>Review</th></tr></thead><tbody>${mine.map(r=>`<tr><td class="request-id">${r.id}</td><td>${escapeHtml(r.researcher)}</td><td>${escapeHtml(r.requester)}</td><td>${escapeHtml(r.type)}</td><td>${r.workMinutes || 0} mins</td><td><button data-row-play="${r.id}">▶ Start QC</button> <button data-row-pause="${r.id}">Ⅱ Pause</button></td><td><button class="assign" data-open-qc="${r.id}">Finish QC</button></td></tr>`).join('')}</tbody></table></div>` : '<section class="empty-state"><h2>No QC requests for the current QCer</h2><p>Complete a research request to route it here.</p></section>'}</section>`;
-}

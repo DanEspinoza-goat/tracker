@@ -1,1 +1,0 @@
-export function changePage(view, action, maxPage) { if (action==='first') return 1; if (action==='last') return maxPage; if (action==='prev') return Math.max(1,view.page-1); if (action==='next') return Math.min(maxPage,view.page+1); return Number(action); }
